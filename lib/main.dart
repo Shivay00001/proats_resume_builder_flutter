@@ -1,26 +1,41 @@
-
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hive_flutter/hive_flutter.dart';
-import 'app.dart';
-import 'storage/local_storage.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  
-  // Initialize Hive Flutter
-  await Hive.initFlutter();
-  
-  // Initialize Storage Service (Registers Adapters & Opens Boxes)
-  final storageService = StorageService();
-  await storageService.init();
+void main() { runApp(const MyApp()); }
 
-  runApp(
-    ProviderScope(
-      overrides: [
-        storageServiceProvider.overrideWithValue(storageService),
-      ],
-      child: const ProResumeApp(),
-    ),
-  );
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'proats resume builder flutter',
+      theme: ThemeData(brightness: Brightness.dark, primaryColor: const Color(0xFF6366F1), scaffoldBackgroundColor: const Color(0xFF0F172A)),
+      home: const DashboardScreen(),
+      debugShowCheckedModeBanner: false,
+    );
+  }
+}
+
+class DashboardScreen extends StatelessWidget {
+  const DashboardScreen({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text('proats resume builder flutter', style: const TextStyle(fontSize: 42, fontWeight: FontWeight.bold, color: Colors.white)),
+            const SizedBox(height: 16),
+            const Text('Next-generation enterprise software platform.', style: TextStyle(color: Colors.white70)),
+            const SizedBox(height: 48),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF6366F1), padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16)),
+              onPressed: () {},
+              child: const Text('Launch Application'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 }
